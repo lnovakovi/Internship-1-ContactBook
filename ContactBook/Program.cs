@@ -15,7 +15,7 @@ namespace ContactBook
             do
             {
                 bool check = false;
-                Console.WriteLine("Dobrodošli u adresar!\nUnesite redni broj opcije koju želite izvršiti:\n1.dodavanje upisa\n2.promjena imena,adrese ili broja\n3.brisanje upisa\n4.pretraga po broju\n5.pretraga po imenu\n6.izlaz iz programa");
+                Console.WriteLine("\nDobrodošli u adresar!\nUnesite redni broj opcije koju želite izvršiti:\n1.dodavanje upisa\n2.promjena imena,adrese ili broja\n3.brisanje upisa\n4.pretraga po broju\n5.pretraga po imenu\n6.izlaz iz programa");
 
                 do
                 {
@@ -48,36 +48,37 @@ namespace ContactBook
                         var numberString = "";
                         var number = 0;
                         var numberConfirmation = 0;
+                        var success = false;
+                        int result;
                         Console.Write("Unesite broj:\t");
-                        numberString = RemoveChar(Console.ReadLine());
-                        try
-                         {
+                        do
+                        {
 
-                            number = int.Parse(numberString);
-                               
-                         }
-                         catch (Exception)
-                         {
+                            numberString = RemoveChar(Console.ReadLine());
+                            success = Int32.TryParse(numberString, out result);
+                            if (!success)
+                            {
+                                Console.Write("Krivi unos,pokusajte ponovno. ");
+                            }
 
-                            Console.Write("krivo ste unijeli broj");
-                            return;
-                                
-                         }
-                        
 
-                        
+                        }
+                        while (!success);
+                        number = result;
+
                         Console.Write("Ponovo unesite broj kao potvrdu:\t");
-                        numberString = RemoveChar(Console.ReadLine());
-                        try
+                        do
                         {
-                            numberConfirmation = int.Parse(numberString);
+                            numberString = RemoveChar(Console.ReadLine());
+                            success = Int32.TryParse(numberString, out result);
+                            if (!success)
+                            {
+                                Console.Write("Krivi unos,pokusajte ponovno. ");
+                            }
                         }
-                        catch (Exception)
-                        {
+                        while (!success);
+                        numberConfirmation = result;
 
-                            Console.Write("krivo ste unijeli broj");
-                            return;
-                        }
                         Console.Write("Unesite adresu:\t");
                         var address = Console.ReadLine();
                         var answer = "";
@@ -110,27 +111,45 @@ namespace ContactBook
                         break;
 
                     case 2:
+                        
+                        
                         var newNumber = 0;
                         var newNumberConfirmation = 0;
                         var newName = "";
                         var newSurname = "";
                         var newAddress = "";
-                        Console.Write("Mijenjanje imena,adrese ili broja");
-                        Console.Write("Unesite broj za koji zelite napraviti izmjenu");
-                        numberString = RemoveChar(Console.ReadLine());
-                        try
+                        Console.WriteLine("Mijenjanje imena,adrese ili broja");
+                        Console.WriteLine("Unesite broj za koji zelite napraviti izmjenu");
+                        do
                         {
-                            number = int.Parse(numberString);
+                           
+                            numberString = RemoveChar(Console.ReadLine());
+                            success = Int32.TryParse(numberString, out result);
+                            if(!success)
+                            {
+                                Console.Write("Krivi unos,pokusajte ponovno. ");
+                            }
+                            
+                            
                         }
-                        catch (Exception)
-                        {
+                        while (!success);
+                        number = result;
+                        
+                        
+                        
+                        //try
+                        //{
+                        //    number = int.Parse(numberString);
+                        //}
+                        //catch (Exception)
+                        //{
 
-                            Console.Write("krivo ste unijeli broj");
-                            return;
-                        }
+                        //    Console.Write("krivo ste unijeli broj");
+                        //    return;
+                        //}
                         if (CheckIfExists(myDictionary, number))
                         {
-                            Console.Write("Unesite promjene");
+                            Console.WriteLine("Unesite promjene");
                             Console.Write("Unesite novo ime:\t");
                             newName = Console.ReadLine();
                             Console.Write("Unesite novo prezime:\t");
@@ -138,29 +157,34 @@ namespace ContactBook
                             Console.Write("Unesite novu adresu:\t");
                             newAddress = Console.ReadLine();
                             Console.Write("Unesite novi broj:\t");
-                            numberString = RemoveChar(Console.ReadLine());
-                            try
-                            {
-                                newNumber = int.Parse(numberString);
-                            }
-                            catch (Exception)
+                            do
                             {
 
-                                Console.Write("krivo ste unijeli broj");
-                                return;
+                                numberString = RemoveChar(Console.ReadLine());
+                                success = Int32.TryParse(numberString, out result);
+                                if (!success)
+                                {
+                                    Console.Write("Krivi unos,pokusajte ponovno. ");
+                                }
+
+
                             }
+                            while (!success);
+                            newNumber = result;
+
                             Console.Write("Ponovo unesite broj kao potvrdu:\t");
-                            numberString = RemoveChar(Console.ReadLine());
-                            try
+                            do
                             {
-                                newNumberConfirmation = int.Parse(numberString);
+                                numberString = RemoveChar(Console.ReadLine());
+                                success = Int32.TryParse(numberString, out result);
+                                if (!success)
+                                {
+                                    Console.Write("Krivi unos,pokusajte ponovno. ");
+                                }
                             }
-                            catch (Exception)
-                            {
+                            while (!success);
+                            newNumberConfirmation = result;
 
-                                Console.Write("krivo ste unijeli broj");
-                                return;
-                            }
                         }
                         else
                         {
@@ -189,29 +213,36 @@ namespace ContactBook
                     case 3:
                         Console.Write("brisanje upisa");
                         Console.Write("Unesite broj koji zelite izbrisati:\t");
-                        numberString = RemoveChar(Console.ReadLine());
-                        try
-                        {
-                            number = int.Parse(numberString);
-                        }
-                        catch (Exception)
+                        do
                         {
 
-                            Console.Write("krivo ste unijeli broj");
-                            return;
+                            numberString = RemoveChar(Console.ReadLine());
+                            success = Int32.TryParse(numberString, out result);
+                            if (!success)
+                            {
+                                Console.Write("Krivi unos,pokusajte ponovno. ");
+                            }
+
+
                         }
+                        while (!success);
+                        number = result;
+
                         Console.Write("Ponovo unesite broj kao potvrdu:\t");
-                        numberString = RemoveChar(Console.ReadLine());
-                        try
+                        do
                         {
-                            numberConfirmation = int.Parse(numberString);
+                            numberString = RemoveChar(Console.ReadLine());
+                            success = Int32.TryParse(numberString, out result);
+                            if (!success)
+                            {
+                                Console.Write("Krivi unos,pokusajte ponovno. ");
+                            }
                         }
-                        catch (Exception)
-                        {
+                        while (!success);
+                        numberConfirmation = result;
 
-                            Console.Write("krivo ste unijeli broj");
-                            return;
-                        }
+                       
+                       
                         if (number == numberConfirmation)
                         {
                             if (CheckIfExists(myDictionary, number))
@@ -232,17 +263,21 @@ namespace ContactBook
 
                     case 4:
                         Console.Write("Pretraga po broju\nUnesite broj koji želite pretražiti:\t");
-                        numberString = RemoveChar(Console.ReadLine());
-                        try
-                        {
-                            number = int.Parse(numberString);
-                        }
-                        catch (Exception)
+                        do
                         {
 
-                            Console.Write("krivo ste unijeli broj");
-                            return;
+                            numberString = RemoveChar(Console.ReadLine());
+                            success = Int32.TryParse(numberString, out result);
+                            if (!success)
+                            {
+                                Console.Write("Krivi unos,pokusajte ponovno. ");
+                            }
+
+
                         }
+                        while (!success);
+                        number = result;
+
                         if (CheckIfExists(myDictionary, number))
                         {
                             Console.Write(SearchByNumber(myDictionary, number));
@@ -307,7 +342,7 @@ namespace ContactBook
         {
 
             var contact = dictionary[number];
-            string print = "Ime i Prezime: " + contact.Item1 + "  " + contact.Item2 + "  Broj: " + contact.Item3.ToString() + "  Adresa: " + contact.Item4;
+            string print = "Ime i Prezime: " + contact.Item1 + "  " + contact.Item2 + "  Broj: " + contact.Item3.ToString() + "  Adresa: " + contact.Item4 + '\n';
             return print;
         }
         static void SearchByName(Dictionary<int, Tuple<string, string, int, string>> dictionary, string search)
